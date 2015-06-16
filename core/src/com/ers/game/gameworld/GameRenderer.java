@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.ers.game.gameobjects.Card;
 import com.ers.game.gameobjects.Hand;
 import com.ers.game.helpers.AssetLoader;
 
@@ -19,6 +20,7 @@ public class GameRenderer {
     private SpriteBatch batch;
 
     private AtlasRegion region;
+
     public GameRenderer(GameWorld world)
     {
         this.world = world;
@@ -28,22 +30,26 @@ public class GameRenderer {
 
     public void render(float runTime){
         Hand gameHand = world.getHand();
+        Hand stack = world.getStack();
+
+        Card card; //Used to get current card
         Gdx.app.log("GameRenderer", "render");
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(Gdx.input.isTouched())
-        {
-
-        }
         batch.begin();
 
-        //If there cards still in the hand show the face down texture
-        if(gameHand.getCount() > 0){
-            batch.draw(AssetLoader.faceDown.getTexture(), Gdx.graphics.getWidth()/2, 0);
+        for(int i = 0; i < gameHand.getCount(); i++){
+            card = gameHand.getCard(i);
+            Gdx.app.log("Hand",card.toString());
+            card.getCurrFace().draw(batch);
         }
-        batch.draw(AssetLoader.animation.getKeyFrame(runTime), 200, 200, 288, 376);
+        for(int i = 0; i < stack.getCount(); i++){
+            card = stack.getCard(i);
+            card.getCurrFace().draw(batch);
+        }
+        //batch.draw(AssetLoader.animation.getKeyFrame(runTime), 200, 200, 288, 376);
 
         batch.end();
     }

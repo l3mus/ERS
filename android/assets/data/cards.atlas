@@ -3,28 +3,28 @@ cards.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-1-Clubs
+Ace-Clubs
   rotate: false
   xy: 1, 406
   size: 72, 96
   orig: 72, 96
   offset: 0, 0
   index: -1
-1-Diamonds
+Ace-Diamonds
   rotate: false
   xy: 1, 308
   size: 72, 96
   orig: 72, 96
   offset: 0, 0
   index: -1
-1-Hearts
+Ace-Hearts
   rotate: false
   xy: 75, 406
   size: 72, 96
   orig: 72, 96
   offset: 0, 0
   index: -1
-1-Spades
+Ace-Spades
   rotate: false
   xy: 1, 210
   size: 72, 96

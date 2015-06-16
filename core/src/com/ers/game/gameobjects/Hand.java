@@ -1,5 +1,6 @@
 package com.ers.game.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.ers.game.gameobjects.Card;
 import com.badlogic.gdx.utils.Array;
 
@@ -52,6 +53,18 @@ public class Hand {
        Card c = hand.first();
        this.removeCard(c);
        return c;
+    }
+    /**
+     * Gets the card in a specified position in the hand.  (Note that this card
+     * is not removed from the hand!)
+     * @param position the position of the card that is to be returned
+     * @throws IllegalArgumentException if position does not exist in the hand
+     */
+    public Card getCard(int position) {
+        if (position < 0 || position >= hand.size)
+            throw new IllegalArgumentException("Position does not exist in hand: "
+                    + position);
+        return hand.get(position);
     }
 
     /**

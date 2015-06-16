@@ -1,8 +1,10 @@
 package com.ers.game.gameworld;
 
 import com.badlogic.gdx.Gdx;
+import com.ers.game.gameobjects.Card;
 import com.ers.game.gameobjects.Deck;
 import com.ers.game.gameobjects.Hand;
+import com.ers.game.helpers.InputHandler;
 
 /**
  * Created by clemus on 6/11/2015.
@@ -11,12 +13,13 @@ import com.ers.game.gameobjects.Hand;
  */
 public class GameWorld {
     private Deck gameDeck;
-    private Hand playerHand;
+    private Hand playerHand, stack;
 
     public GameWorld() {
         gameDeck = new Deck();
-
-        for(int i = 0; i < gameDeck.cardsLeft(); i++){
+        playerHand = new Hand();
+        stack = new Hand();
+        while(gameDeck.cardsLeft() > 0){
             playerHand.addCard(gameDeck.dealCard());
         }
 
@@ -35,11 +38,20 @@ public class GameWorld {
         return gameDeck;
     }
     /**
-     * Returns the game deck
+     * Returns the players hand
      *
-     * @return Deck the game deck
+     * @return playerHand the players hand
      */
     public Hand getHand(){
         return playerHand;
+    }
+
+    /**
+     * Returns the stack, the cards in the middle
+     *
+     * @return stack the stack of cards in the middle
+     */
+    public Hand getStack(){
+        return stack;
     }
 }

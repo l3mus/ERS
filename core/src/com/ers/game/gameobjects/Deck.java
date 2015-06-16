@@ -23,10 +23,12 @@ public class Deck {
         int cardCount = 0; //How many cards have been created
         for( int suit = 0; suit <= 3; suit++) {
             for( int rank = 1; rank <= 13; rank++){
-                deck[cardCount] = new Card(suit,rank,false, Gdx.graphics.getWidth()/2, 0);
+                deck[cardCount] = new Card(suit,rank,false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
                 cardCount++;
             }
         }
+
+
         cardsUsed = 0;
     }
     /**

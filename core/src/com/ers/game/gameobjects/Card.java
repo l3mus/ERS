@@ -1,11 +1,20 @@
 package com.ers.game.gameobjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
+import com.ers.game.helpers.AssetLoader;
+
 /**
  * Created by clemus on 6/11/2015.
  */
 public class Card {
     private final int suit,rank;
-    private float x,y;
+    private Sprite cardFaceUp;
+    private Sprite cardFaceDown;
+
+
+    private Sprite currFace;
     private boolean isFacedUp; //faced up mean showing the suit and rank shows
     private String[] suits = {"Spades","Hearts","Diamonds","Clubs"};
     private String[] ranks = {"Joker","Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"}; //Joker is normaly a suit but has been moved to a rank to allow "Ace" to start at index 1
@@ -19,9 +28,8 @@ public class Card {
     public Card() {
         suit = 0;
         rank = 1;
-        x = 0;
-        y = 0;
         isFacedUp = false;
+        currFace = new Sprite(AssetLoader.cardTextureAtlas.findRegion(ranks[rank] + "-" + suits[suit]));
     }
     /**
      * Card Constructor
@@ -35,9 +43,12 @@ public class Card {
         this.suit = suit;
         this.rank = rank;
         this.isFacedUp = isFacedUp;
-        this.x = x;
-        this.y = y;
+        //currFace = new Sprite(AssetLoader.cardTextureAtlas.findRegion(ranks[rank] + "-" + suits[suit]));
+        currFace = new Sprite(AssetLoader.faceDown);
+        currFace.setPosition(x,y);
+        currFace.setScale(5f);
     }
+
     /** to string the card info
      *
      * @return: the card name with the suit
@@ -49,13 +60,14 @@ public class Card {
     /**
      * @return: int rank the rank
      */
-    public int getRank(){
-        return rank;
-    }
+    public int getRank(){ return rank; }
+
+    public String getRankString(){return ranks[rank]; }
     /**
      * @return: int suit the suit
      */
     public int getSuit() { return suit; }
+    public String getSuitsString(){return suits[suit]; }
     /**
      * True means the rank and suit are showing
      * False means the back of the card is showing
@@ -63,24 +75,23 @@ public class Card {
      */
     public boolean getFacedUp() { return isFacedUp; }
     /**
-     * @return: float y the y coordinate
-     */
-    public float getX() { return x; }
-    /**
-     * @return: float y the y coordinate
-     */
-    public float getY() { return y; }
-    /**
-     * Sets the x coordinate
-     */
-    public void setX(float x) { this.x = x; }
-    /**
-     *  Sets the y coordinate
-     */
-    public void setY(float y) { this.y = y; }
-    /**
      * Sets the card isFacedUp
      */
     public void setFacedUp(boolean isFacedUp) { this.isFacedUp = isFacedUp;  }
 
+    public Sprite getCurrFace() {
+        return currFace;
+    }
+
+    public void setCurrFace(Sprite currFace) {
+        this.currFace = currFace;
+    }
+
+    public void onClick( ){
+        if(isFacedUp){
+            currFace.setRegion(AssetLoader.faceDown);
+        }else{
+            currFace.setRegion(AssetLoader.cardTextureAtlas.findRegion(getRankString() + "-" + getSuitsString()));
+        }
+    }
 }// end card class
