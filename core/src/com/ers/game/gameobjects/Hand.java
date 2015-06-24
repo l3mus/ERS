@@ -55,6 +55,19 @@ public class Hand {
        return c;
     }
     /**
+     * The game takes the top card of the deck to place in center stack
+     * Remove the top of the deck, in this case the first card of hand
+     * @return the first card of the array
+     */
+    public Card getTopCard(){
+        if(hand.size != 0) {
+            Card c = hand.peek();
+            return c;
+        }else{
+            return null;
+        }
+    }
+    /**
      * Gets the card in a specified position in the hand.  (Note that this card
      * is not removed from the hand!)
      * @param position the position of the card that is to be returned

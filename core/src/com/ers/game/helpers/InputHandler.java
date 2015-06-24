@@ -5,18 +5,17 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.ers.game.gameobjects.Card;
 import com.ers.game.gameobjects.Hand;
+import com.ers.game.gameobjects.Player;
 
 /**
  * Created by clemus on 6/12/2015.
  */
 public class InputHandler implements InputProcessor {
-    Hand gameHand;
-    Hand stack;
-    Sprite sprite;
-    Card card;
-    public InputHandler(Hand gameHand, Hand stack) {
+    private Player [] players;
+    private Hand stack;
+    public InputHandler(Player[] players, Hand stack) {
 
-        this.gameHand = gameHand;
+        this.players = players;
         this.stack = stack;
     }
 
@@ -39,17 +38,11 @@ public class InputHandler implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Gdx.app.log("Sprite","Touched Down");
 
-        //Check if card on top has been touched
-        if(gameHand.getCount() > 0) {
-            card = gameHand.getCard(0);
-            Gdx.app.log("Sprite",card.toString());
-            sprite = card.getCurrFace();
-            if (sprite.getBoundingRectangle().contains(screenX, screenY)) {
-                card.onClick();
-                sprite.setPosition(200, 200);
-                stack.addCard(card);
-                gameHand.removeCard(card);
-            }
+         //Check if card on top has been touched
+         for(Player player : players) {
+             if (player.getTurnsLeft() > 0) {
+                 player.play(screenX,screenY, stack);
+             }
         }
         return false;
     }

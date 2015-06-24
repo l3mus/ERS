@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.ers.game.gameobjects.Card;
 import com.ers.game.gameobjects.Hand;
+import com.ers.game.gameobjects.Player;
 import com.ers.game.helpers.AssetLoader;
 
 /**
@@ -20,17 +21,20 @@ public class GameRenderer {
     private SpriteBatch batch;
 
     private AtlasRegion region;
-
+    Player[] players;
+    Hand stack;
     public GameRenderer(GameWorld world)
     {
         this.world = world;
 
+        initGameObjects();
         batch = new SpriteBatch();
     }
-
+    private void initGameObjects() {
+        players = world.getPlayers();
+        stack = world.getStack();
+    }
     public void render(float runTime){
-        Hand gameHand = world.getHand();
-        Hand stack = world.getStack();
 
         Card card; //Used to get current card
         Gdx.app.log("GameRenderer", "render");
@@ -40,11 +44,14 @@ public class GameRenderer {
 
         batch.begin();
 
-        for(int i = 0; i < gameHand.getCount(); i++){
-            card = gameHand.getCard(i);
-            Gdx.app.log("Hand",card.toString());
-            card.getCurrFace().draw(batch);
+        for(Player player : players){
+            for(int i = 0; i < player.getHand().getCount(); i++) {
+                card = player.getHand().getCard(i);
+                Gdx.app.log("Hand", card.toString());
+                card.getCurrFace().draw(batch);
+            }
         }
+
         for(int i = 0; i < stack.getCount(); i++){
             card = stack.getCard(i);
             card.getCurrFace().draw(batch);

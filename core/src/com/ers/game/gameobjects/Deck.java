@@ -16,7 +16,8 @@ public class Deck {
     /**
      * Constructs a deck of playing cards, the deck contains 52 cards.
      * Initially the cards are in a sorted order. The shuffle() method can
-     * be called to randomize the order.
+     * be called to randomize the order
+     * @todo create a constructor that sets the x and y coordinates accordingly
      */
     public Deck(){
         deck = new Card[52];
@@ -27,8 +28,6 @@ public class Deck {
                 cardCount++;
             }
         }
-
-
         cardsUsed = 0;
     }
     /**
@@ -62,10 +61,13 @@ public class Deck {
      * @throws java.lang.IllegalStateException ifthere are no cards left in the deck
      */
     public Card dealCard(){
-        if(cardsUsed == deck.length)
-            throw new IllegalStateException("No cards are left in the deck.");
-        cardsUsed++;
-        return deck[cardsUsed -1]; //Cards are not actually removed from deck
+        if(cardsUsed != deck.length){
+            cardsUsed++;
+            return deck[cardsUsed -1]; //Cards are not actually removed from deck
+        }else{
+            //throw new IllegalStateException("No cards are left in the deck.");
+            return null;
+        }
     }
 
 }//end class Deck
