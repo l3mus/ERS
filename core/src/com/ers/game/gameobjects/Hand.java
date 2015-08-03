@@ -51,7 +51,6 @@ public class Hand {
      */
     public Card getFirstCard(){
        Card c = hand.first();
-       this.removeCard(c);
        return c;
     }
     /**

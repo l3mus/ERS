@@ -13,6 +13,7 @@ import com.ers.game.gameobjects.Player;
 public class InputHandler implements InputProcessor {
     private Player [] players;
     private Hand stack;
+
     public InputHandler(Player[] players, Hand stack) {
 
         this.players = players;
@@ -36,7 +37,6 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Gdx.app.log("Sprite","Touched Down");
 
          //Check if card on top has been touched
          for(Player player : players) {

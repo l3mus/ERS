@@ -1,0 +1,6 @@
+{
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: { down: button, up: button },
+	toggle: { down: button, checked: button, up: button }
+}
+}

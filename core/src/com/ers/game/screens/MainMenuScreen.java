@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.ers.game.ERS;
+import com.ers.game.helpers.AssetLoader;
 
 /**
  * Created by clemus on 6/10/2015.
@@ -26,7 +27,7 @@ public class MainMenuScreen implements Screen {
     private Stage stage = new Stage();
     private Table table = new Table();
 
-    private Skin skin = new Skin( );
+    private Skin skin;
 
 
     //On Init
@@ -43,7 +44,7 @@ public class MainMenuScreen implements Screen {
     @Override
     public void show() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("data/unbom.ttf"));
-        buttonFont = createFont(generator, 50);
+        buttonFont = AssetLoader.createFont(generator, 50);
 
         skin = new Skin( );
         skin.add("default-font",buttonFont, BitmapFont.class);
@@ -122,13 +123,5 @@ public class MainMenuScreen implements Screen {
         stage.dispose();
         skin.dispose();
     }
-    BitmapFont createFont(FreeTypeFontGenerator generator, float dp)
-    {
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-        int fontSize = (int)(dp * Gdx.graphics.getDensity());
-        parameter.size = fontSize;
-
-        return generator.generateFont(parameter);
-    }
 }

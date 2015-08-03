@@ -1,5 +1,6 @@
 package com.ers.game.screens;
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.ers.game.ERS;
 import com.ers.game.gameworld.GameRenderer;
 import com.ers.game.gameworld.GameWorld;
@@ -19,15 +20,16 @@ public class GameScreen implements Screen {
     private GameWorld world;
     private GameRenderer renderer;
 
+    final InputMultiplexer inputMultiplexer = new InputMultiplexer();
     private float runTime;
     public GameScreen(final ERS game) {
         this.game = game;
 
         world = new GameWorld();
         renderer = new GameRenderer(world);
-
-
-        Gdx.input.setInputProcessor(new InputHandler(world.getPlayers(), world.getStack()));
+        inputMultiplexer.addProcessor(new InputHandler(world.getPlayers(), world.getStack()));
+        inputMultiplexer.addProcessor(world.getStage());
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
     @Override
     public void show() {

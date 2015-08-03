@@ -45,8 +45,9 @@ public class Card {
         this.isFacedUp = isFacedUp;
         //currFace = new Sprite(AssetLoader.cardTextureAtlas.findRegion(ranks[rank] + "-" + suits[suit]));
         currFace = new Sprite(AssetLoader.faceDown);
-        currFace.setPosition(x,y);
         currFace.setScale(5f);
+        currFace.setPosition(x,y);
+        currFace.getBoundingRectangle();
     }
 
     /** to string the card info
@@ -89,9 +90,9 @@ public class Card {
 
     public void onClick( ){
         if(isFacedUp){
-            currFace.setRegion(AssetLoader.faceDown);
-        }else{
             currFace.setRegion(AssetLoader.cardTextureAtlas.findRegion(getRankString() + "-" + getSuitsString()));
+        }else{
+            currFace.setRegion(AssetLoader.faceDown);
         }
     }
 }// end card class
